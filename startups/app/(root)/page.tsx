@@ -7,10 +7,11 @@ export default async function Home({searchParams}: { searchParams: Promise<{ que
 
     const posts = [
         {
-            _createdAt: "Yesterday",
+            _createdAt: new Date(),
             views: 55,
             author: {
-                _id: 1
+                _id: 1,
+                name: 'Janindu'
             },
             _id: 1,
             description: "This is a new post",
