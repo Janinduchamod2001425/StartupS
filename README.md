@@ -27,3 +27,9 @@ npm install next-auth
 ```bash
 npx auth secret
 ```
+
+#### shadcn components
+
+```bash
+npx shadcn@latest add input textarea toast     
+```
