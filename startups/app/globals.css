@@ -173,6 +173,10 @@
         @apply border-[3px] border-black p-5 text-[18px] text-black font-semibold rounded-[20px] mt-3 placeholder:text-black-300 !important;
     }
 
+    .startup-form_pitch {
+        @apply border-[3px] border-black p-5 text-[18px] text-black font-semibold rounded-[20px] mt-3 placeholder:text-black-300 !important;
+    }
+
     .startup-form_error {
         @apply text-red-500 mt-2 ml-5;
     }
