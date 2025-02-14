@@ -1,79 +1,91 @@
-import {formatDate} from "@/lib/utils";
-import {EyeIcon} from "lucide-react";
+import { cn, formatDate } from "@/lib/utils";
+import { EyeIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import {Button} from "@/components/ui/button";
-import {Author, Startup} from "@/sanity/types";
+import { Button } from "@/components/ui/button";
+import { Author, Startup } from "@/sanity/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export type StartupTypeCard = Omit<Startup, "author"> & { author?: Author }
+export type StartupTypeCard = Omit<Startup, "author"> & { author?: Author };
 
-const StartupCard = ({post}: { post: StartupTypeCard }) => {
+const StartupCard = ({ post }: { post: StartupTypeCard }) => {
+  // Destructure the properties of the post
+  const {
+    _createdAt,
+    views,
+    author,
+    title,
+    category,
+    _id,
+    image,
+    description,
+  } = post;
 
-    // Destructure the properties of the post
-    const {_createdAt, views, author, title, category, _id, image, description} = post;
+  return (
+    <li className="startup-card group">
+      <div className="flex-between">
+        {/*Created Date of the Post*/}
+        <p className="startuo_card_date">{formatDate(_createdAt)}</p>
 
-    return (
-        <li className="startup-card group">
-            <div className="flex-between">
-                {/*Created Date of the Post*/}
-                <p className="startuo_card_date">
-                    {formatDate(_createdAt)}
-                </p>
+        {/*No of Views in the Post*/}
+        <div className="flex gap-1.5">
+          <EyeIcon className="size-6 text-primary" />
+          <span className="text-16-medium">{views}</span>
+        </div>
+      </div>
 
-                {/*No of Views in the Post*/}
-                <div className="flex gap-1.5">
-                    <EyeIcon className="size-6 text-primary"/>
-                    <span className="text-16-medium">{views}</span>
-                </div>
-            </div>
+      <div className="flex-between mt-5 gap-5">
+        <div className="flex-1">
+          {/*Author Name */}
+          <Link href={`/user/${author?._id}`}>
+            <p className="text-16-medium line-clamp-1">{author?.name}</p>
+          </Link>
 
-            <div className="flex-between mt-5 gap-5">
-                <div className="flex-1">
+          {/*Startup Name */}
+          <Link href={`/startup/${_id}`}>
+            <h3 className="text-26-semibold line-clamp-1">{title}</h3>
+          </Link>
+        </div>
 
-                    {/*Author Name */}
-                    <Link href={`/user/${author?._id}`}>
-                        <p className="text-16-medium line-clamp-1">
-                            {author?.name}
-                        </p>
-                    </Link>
+        <Link href={`/user/${author?._id}`}>
+          <Image
+            src={author?.image!}
+            alt={author?.name!}
+            width={48}
+            height={48}
+            className="rounded-full"
+          />
+        </Link>
+      </div>
 
-                    {/*Startup Name */}
-                    <Link href={`/startup/${_id}`}>
-                        <h3 className="text-26-semibold line-clamp-1">
-                            {title}
-                        </h3>
-                    </Link>
-                </div>
+      {/*Description & Image of the post*/}
+      <Link href={`/startup/${_id}`}>
+        <p className="startup-card_desc">{description}</p>
 
-                <Link href={`/user/${author?._id}`}>
-                    <Image
-                        src="https://placehold.co/48x48"
-                        alt="placeholder"
-                        width={48}
-                        height={48}
-                        className="rounded-full"/>
-                </Link>
-            </div>
+        <img src={image} alt="placeholder" className="startup-card_img" />
+      </Link>
 
-            {/*Description & Image of the post*/}
-            <Link href={`/startup/${_id}`}>
-                <p className="startup-card_desc">
-                    {description}
-                </p>
+      {/*Footer of the Card*/}
+      <div className="flex-between gap-3 mt-5">
+        <Link href={`/?query=${category?.toLowerCase()}`}>
+          <p className="text-16-medium">{category}</p>
+        </Link>
+        <Button className="startup-card_btn" asChild>
+          <Link href={`/startup/${_id}`}>Details</Link>
+        </Button>
+      </div>
+    </li>
+  );
+};
 
-                <img src={image} alt="placeholder" className="startup-card_img"/>
-            </Link>
+export const StartupCardSkeleton = () => (
+  <>
+    {[0, 1, 2, 3, 4].map((index: number) => (
+      <li key={cn("skeleton", index)}>
+        <Skeleton className="startup-card_skeleton" />
+      </li>
+    ))}
+  </>
+);
 
-            {/*Footer of the Card*/}
-            <div className="flex-between gap-3 mt-5">
-                <Link href={`/?query=${category?.toLowerCase()}`}>
-                    <p className="text-16-medium">{category}</p>
-                </Link>
-                <Button className="startup-card_btn" asChild>
-                    <Link href={`/startup/${_id}`}>Details</Link>
-                </Button>
-            </div>
-        </li>
-    )
-}
-export default StartupCard
+export default StartupCard;
