@@ -39,7 +39,6 @@ const StartupForm = () => {
         toast({
           title: "Success",
           description: "Your startup has been submitted successfully!",
-          variant: "default",
         });
         // Redirect to detail page
         router.push(`/startup/${result._id}`);
