@@ -44,6 +44,7 @@ const StartupForm = () => {
         router.push(`/startup/${result._id}`);
       }
 
+      // Return updated state with success status
       return result;
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -178,6 +179,7 @@ const StartupForm = () => {
         {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}
       </div>
 
+      {/* Submit Button */}
       <Button
         type="submit"
         className="startup-form_btn text-white"

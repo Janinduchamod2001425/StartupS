@@ -17,16 +17,22 @@ const md = markdownit();
 
 export const experimental_ppr = true;
 
+// Display the startup card when the user clicks on the  details button in the startup card
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
+  // Fetch the Startups and Editor Picks Startups from Sanity
+  // Promise.all is used to execute both fetch requests at the same time(Parallel Fetching),
+  // improving performance by avoiding sequential fetching.
   const [post, { select: editorPosts }] = await Promise.all([
     client.fetch(STARTUP_BY_ID_QUERY, { id }),
     client.fetch(PLAYLIST_BY_SLUG_QUERY, { slug: "editor-picks" }),
   ]);
 
+  // If the post or editor picks startups are not found, return a 404 Not Found page
   if (!post) return notFound();
 
+  // Convert the startup's pitch from Markdown to HTML using the Markdown renderer
   const parsedContent = md.render(post?.pitch || "");
 
   return (
@@ -74,9 +80,11 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
               </div>
             </Link>
 
+            {/*Category*/}
             <p className="category-tag">{post.category}</p>
           </div>
 
+          {/*Pitch Details*/}
           <h3 className="text-30-bold">Pitch Details</h3>
           {parsedContent ? (
             <article
@@ -89,7 +97,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
         {/*Section Divider*/}
         <hr className="divider" />
-
         {/*Editor Picks Posts*/}
         {editorPosts?.length > 0 && (
           <div className="max-w-4xl mx-auto">
@@ -102,7 +109,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </ul>
           </div>
         )}
-
+        {/*Use skeleton while loading the startups*/}
         <Suspense fallback={<Skeleton className="view_skeleton" />}>
           <View id={id} />
         </Suspense>

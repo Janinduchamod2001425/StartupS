@@ -47,6 +47,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
           </Link>
         </div>
 
+        {/*Author Image*/}
         <Link href={`/user/${author?._id}`}>
           <Image
             src={author?.image!}
@@ -78,6 +79,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   );
 };
 
+// Skeleton Component for StartupCard
 export const StartupCardSkeleton = () => (
   <>
     {[0, 1, 2, 3, 4].map((index: number) => (

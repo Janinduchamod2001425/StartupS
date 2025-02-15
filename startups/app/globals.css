@@ -51,6 +51,12 @@
         @apply w-full bg-primary min-h-[530px] pattern flex justify-center items-center flex-col py-10 px-6;
     }
 
+    .gradient_container {
+        @apply w-full min-h-[530px] flex justify-center items-center flex-col py-10 px-6
+        bg-gradient-to-r from-pink-500 via-red-500 to-orange-500;
+    }
+
+
     .tag {
         @apply bg-secondary px-6 py-3 font-work-sans font-bold rounded-sm uppercase relative tag-tri;
     }
@@ -85,7 +91,9 @@
     }
 
     .profile_card {
-        @apply w-80 px-6 pb-6 pt-20 flex flex-col justify-center items-center bg-primary border-[5px] border-black shadow-100 rounded-[30px] relative z-0 h-fit max-lg:w-full;
+        @apply w-80 px-6 pb-6 pt-20 flex flex-col justify-center items-center
+        bg-gradient-to-r from-pink-500 via-red-500 to-orange-500 border-[5px]
+        border-black shadow-100 rounded-[30px] relative z-0 h-fit max-lg:w-full;
     }
 
     .profile_title {
@@ -131,7 +139,7 @@
         @apply size-[50px] rounded-full bg-black flex justify-center items-center !important;
     }
 
-    /* startupcard */
+    /* Startupcard */
     .startup-card {
         @apply bg-white border-[5px] border-black py-6 px-5 rounded-[22px] shadow-200 hover:border-primary transition-all duration-500 hover:shadow-300 hover:bg-primary-100;
     }
@@ -186,7 +194,7 @@
     }
 
     .startup-form_btn {
-        @apply bg-primary border-[4px] border-black rounded-full p-5 min-h-[70px] w-full font-bold text-[18px] !important;
+        @apply border-[4px] border-black rounded-full p-5 min-h-[70px] w-full font-bold text-[18px] bg-gradient-to-r from-pink-500 via-red-500 to-orange-500 text-white;
     }
 
     /* view */

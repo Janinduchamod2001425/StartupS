@@ -4,23 +4,31 @@ import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { auth } from "@/auth";
 
+// Home Page of the application
 export default async function Home({
   searchParams,
 }: {
   searchParams: Promise<{ query?: string }>;
 }) {
+  // Extract the search query from URL parameters
   const query = (await searchParams).query;
+
+  // Define the query parameters
   const params = { search: query || null };
 
+  // Fetch the authentication session
   const session = await auth();
+
+  // Log the session ID (for debugging purposes)
   console.log(session?.id);
 
+  // Fetch startup data from Sanity using query and parameters
   const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
 
   return (
     <>
       {/*Hero Section*/}
-      <section className="pink_container">
+      <section className="gradient_container">
         {/*Main Title*/}
         <h1 className="heading">
           Pitch Your Startup, <br /> Connect With Entrepreneurs
@@ -43,8 +51,10 @@ export default async function Home({
           {query ? `Search Results for "${query}"` : "All Startups"}
         </p>
 
+        {/*Display search results in a grid*/}
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
+            // Map the posts if exists
             posts.map((post: StartupTypeCard) => (
               <StartupCard key={post?._id} post={post} />
             ))
@@ -54,6 +64,7 @@ export default async function Home({
         </ul>
       </section>
 
+      {/*Enable real-time updates from sanity*/}
       <SanityLive />
     </>
   );
