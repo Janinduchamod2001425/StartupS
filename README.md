@@ -1,5 +1,9 @@
 # StartupS
 
+<img src="https://go-skill-icons.vercel.app/api/icons?i=nextjs,typescript,tailwind"  alt="Cover Image"/>
+
+![Startups App Demo](./cover/startups.png)
+
  <div>
     <img src="https://img.shields.io/badge/-Typescript-black?style=for-the-badge&logoColor=white&logo=react&color=3178C6" alt="typescript" />
     <img src="https://img.shields.io/badge/-Next_JS-black?style=for-the-badge&logoColor=white&logo=nextdotjs&color=000000" alt="nextdotjs" />
